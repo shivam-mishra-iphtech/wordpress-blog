@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) {
 }
 
 function student_table_display_page() {
+    ob_start()
     ?>
     <div class="wrap">
         <h2>Student List</h2>
@@ -36,4 +37,6 @@ function student_table_display_page() {
         </table>
     </div>
     <?php
+    return ob_get_clean();
 }
+add_shortcode('custom_form', 'student_table_display_page');

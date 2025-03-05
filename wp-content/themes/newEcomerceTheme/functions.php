@@ -28,6 +28,7 @@ function mytheme_enqueue_scripts() {
         'all' // Media type
     );
 }
-add_action('wp_enqueue_scripts', 'mytheme_enqueue_scripts');
+
+
 
 ?>

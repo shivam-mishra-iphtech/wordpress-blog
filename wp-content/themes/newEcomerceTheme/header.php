@@ -318,7 +318,10 @@
                 </ul>
               </li>
             </ul> -->
-            <?php wp_nav_menu(array('theme_location'=>'Primary Menu','menu_class'=>'navbars'))?>
+            <?php wp_nav_menu(array('theme_location'=>'Primary Menu','menu_class'=>'navbars'));
+                  wp_nav_menu(array('wp_nav_menu_items'=>'Secondary Menu'));
+            ?>
+            
           </div>
           
           <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center justify-content-sm-end">

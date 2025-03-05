@@ -21,4 +21,52 @@ if ( !function_exists( 'child_theme_configurator_css' ) ):
 endif;
 add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
 
-// END ENQUEUE PARENT ACTION
+$show_albums = get_posts( array(
+    'posts_per_page' => 10,
+    'orderby'        => 'rand',
+    'post_type'      => 'post',
+    'genre'          => 'jazz',
+    'post_status'    => 'publish'
+) );
+
+// echo "<pre style='width:800px; padding:300px;'>";
+// print_r($show_albums);
+// echo "</pre>";
+
+function add_custom_menu_link($items, $args) {
+    // Define the correct URL using get_template_directory_uri()
+    $custom_link = '<li class="menu-item"><a href="' . get_template_directory_uri() . '/pattern/studentList.php">Student</a></li>';
+
+    // Append the new menu item
+    return $items . $custom_link;
+}
+add_filter('wp_nav_menu_items', 'add_custom_menu_link', 10, 2);
+
+$api_url = get_site_url() . '/wp-json/wp/v2/pages';
+$response = wp_remote_get($api_url);
+// echo "<pre style='width:800px; padding:300px;'>";
+// print_r($response);
+// echo "</pre>";
+// Check if the request was successful
+if (is_wp_error($response)) {
+    echo 'Error fetching pages: ' . $response->get_error_message();
+    return;
+}
+
+$pages = json_decode(wp_remote_retrieve_body($response), true);
+
+
+
+// Check if $pages is a valid array before looping
+if (!is_array($pages)) {
+    echo 'No pages found or API returned an invalid response.';
+    return;
+}
+
+echo '<ul>';
+foreach ($pages as $page) {
+    echo '<li><a href="' . esc_url($page['link']) . '">' . esc_html($page['title']['rendered']) . '</a></li>';
+}
+echo '</ul>';
+
+?>

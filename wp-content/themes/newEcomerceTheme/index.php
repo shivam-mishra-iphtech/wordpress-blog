@@ -1,4 +1,10 @@
-<?php echo get_header();?>
+<?php echo get_header();
+
+
+
+ 
+?>
+
     
     <section style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/banner-1.jpg');background-repeat: no-repeat;background-size: cover;">
       <div class="container-lg">
@@ -83,6 +89,8 @@
       
       </div>
     </section>
+     <?php require get_template_directory() . '/pattern/studentList.php'; ?>
+
 
     <section class="py-5 overflow-hidden">
       <div class="container-lg">
